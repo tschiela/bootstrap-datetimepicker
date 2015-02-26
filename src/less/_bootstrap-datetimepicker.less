@@ -5,9 +5,18 @@
  */
 .bootstrap-datetimepicker-widget {
     &.dropdown-menu {
-        margin: 2px 0;
         padding: 4px;
-        width: 19em;
+        position: fixed;
+        height: 310px;
+        width: 90%;
+        margin: 0 5% 2em 5%;
+
+        @media(min-width: @screen-sm-min) {
+            position: absolute;
+            width: 19em;
+            height: auto;
+            margin: 2px 0;
+        }
 
         &.timepicker-sbs {
             @media (min-width: @screen-sm-min) {
@@ -21,59 +30,61 @@
             }
         }
 
-        &:before, &:after {
-            content: '';
-            display: inline-block;
-            position: absolute;
-        }
-
-        &.bottom {
-            &:before {
-                border-left: 7px solid transparent;
-                border-right: 7px solid transparent;
-                border-bottom: 7px solid #ccc;
-                border-bottom-color: rgba(0,0,0,.2);
-                top: -7px;
-                left: 7px;
+        @media(min-width: @screen-sm-min) {
+            &:before, &:after {
+                content: '';
+                display: inline-block;
+                position: absolute;
             }
 
-            &:after {
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-bottom: 6px solid white;
-                top: -6px;
-                left: 8px;
-            }
-        }
+            &.bottom {
+                &:before {
+                    border-left: 7px solid transparent;
+                    border-right: 7px solid transparent;
+                    border-bottom: 7px solid #ccc;
+                    border-bottom-color: rgba(0,0,0,.2);
+                    top: -7px;
+                    left: 7px;
+                }
 
-        &.top {
-            &:before {
-                border-left: 7px solid transparent;
-                border-right: 7px solid transparent;
-                border-top: 7px solid #ccc;
-                border-top-color: rgba(0,0,0,.2);
-                bottom: -7px;
-                left: 6px;
-            }
-
-            &:after {
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-top: 6px solid white;
-                bottom: -6px;
-                left: 7px;
-            }
-        }
-
-        &.pull-right {
-            &:before {
-                left: auto;
-                right: 6px;
+                &:after {
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-bottom: 6px solid white;
+                    top: -6px;
+                    left: 8px;
+                }
             }
 
-            &:after {
-                left: auto;
-                right: 7px;
+            &.top {
+                &:before {
+                    border-left: 7px solid transparent;
+                    border-right: 7px solid transparent;
+                    border-top: 7px solid #ccc;
+                    border-top-color: rgba(0,0,0,.2);
+                    bottom: -7px;
+                    left: 6px;
+                }
+
+                &:after {
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-top: 6px solid white;
+                    bottom: -6px;
+                    left: 7px;
+                }
+            }
+
+            &.pull-right {
+                &:before {
+                    left: auto;
+                    right: 6px;
+                }
+
+                &:after {
+                    left: auto;
+                    right: 7px;
+                }
             }
         }
     }
@@ -187,19 +198,26 @@
         }
     }
 
-    thead tr:first-child th {
-        cursor: pointer;
+    thead {
+        tr:first-child th {
+            cursor: pointer;
 
-        &:hover {
-            background: @gray-lighter;
+            &:hover {
+                background: @gray-lighter;
+            }
+        }
+    }
+
+    .glyphicon,
+    .picker-switch {
+        font-size: 1.5em;
+
+        @media (min-width: @screen-sm-min) {
+            font-size: 1em;
         }
     }
 
     td {
-        height: 54px;
-        line-height: 54px;
-        width: 54px;
-
         &.cw {
             font-size: .8em;
             height: 20px;
@@ -212,6 +230,41 @@
             height: 20px;
             line-height: 20px;
             width: 20px;
+        }
+
+        &.year,
+        &.month {
+            height: auto;
+            width: 25%;
+            cursor: pointer;
+            border-radius: @border-radius-base;
+
+            &:hover {
+                background: @gray-lighter;
+            }
+
+            &.active {
+                background-color: @btn-primary-bg;
+                color: @btn-primary-color;
+                text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+            }
+
+            &.old {
+                color: @gray-light;
+            }
+
+            &.disabled,
+            &.disabled:hover {
+                background: none;
+                color: @gray-light;
+                cursor: not-allowed;
+            }
+
+            @media (min-width: @screen-sm-min) {
+                height: 54px;
+                line-height: 54px;
+                width: 54px;
+            }
         }
 
         &.day:hover,
@@ -259,43 +312,58 @@
             color: @gray-light;
             cursor: not-allowed;
         }
-
-        span {
-            display: inline-block;
-            width: 54px;
-            height: 54px;
-            line-height: 54px;
-            margin: 2px 1.5px;
-            cursor: pointer;
-            border-radius: @border-radius-base;
-
-            &:hover {
-                background: @gray-lighter;
-            }
-
-            &.active {
-                background-color: @btn-primary-bg;
-                color: @btn-primary-color;
-                text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-            }
-
-            &.old {
-                color: @gray-light;
-            }
-
-            &.disabled,
-            &.disabled:hover {
-                background: none;
-                color: @gray-light;
-                cursor: not-allowed;
-            }
-        }
     }
 
     &.usetwentyfour {
         td.hour {
             height: 27px;
             line-height: 27px;
+        }
+    }
+
+    .collapsing {
+        -webkit-transition: none;
+        transition: none;
+
+        @media (min-width: @screen-sm-min) {
+            .transition-property(~"height, visibility");
+            .transition-duration(.35s);
+            .transition-timing-function(ease);
+        }
+    }
+}
+
+.list-unstyled {
+    max-height: 100%;
+    height: 100%;
+
+    > li {
+        height: 90%;
+
+        &.collapse.in {
+            height: auto !important;
+        }
+
+        &.picker-switch {
+            height: auto;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        height: auto;
+    }
+}
+
+.datepicker,
+.timepicker {
+    &:extend(.list-unstyled);
+
+    > div {
+        &:extend(.list-unstyled);
+
+        table {
+            &:extend(.list-unstyled);
+
         }
     }
 }

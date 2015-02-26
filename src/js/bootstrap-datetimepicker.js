@@ -162,12 +162,12 @@
 
                 if (isEnabled('h')) {
                     topRow.append($('<td>')
-                        .append($('<a>').attr('href', '#').addClass('btn').attr('data-action', 'incrementHours')
+                        .append($('<button>').addClass('btn').attr('data-action', 'incrementHours')
                             .append($('<span>').addClass(options.icons.up))));
                     middleRow.append($('<td>')
                         .append($('<span>').addClass('timepicker-hour').attr('data-time-component', 'hours').attr('data-action', 'showHours')));
                     bottomRow.append($('<td>')
-                        .append($('<a>').attr('href', '#').addClass('btn').attr('data-action', 'decrementHours')
+                        .append($('<button>').addClass('btn').attr('data-action', 'decrementHours')
                             .append($('<span>').addClass(options.icons.down))));
                 }
                 if (isEnabled('m')) {
@@ -177,12 +177,12 @@
                         bottomRow.append($('<td>').addClass('separator'));
                     }
                     topRow.append($('<td>')
-                        .append($('<a>').attr('href', '#').addClass('btn').attr('data-action', 'incrementMinutes')
+                        .append($('<button>').addClass('btn').attr('data-action', 'incrementMinutes')
                             .append($('<span>').addClass(options.icons.up))));
                     middleRow.append($('<td>')
                         .append($('<span>').addClass('timepicker-minute').attr('data-time-component', 'minutes').attr('data-action', 'showMinutes')));
                     bottomRow.append($('<td>')
-                        .append($('<a>').attr('href', '#').addClass('btn').attr('data-action', 'decrementMinutes')
+                        .append($('<button>').addClass('btn').attr('data-action', 'decrementMinutes')
                             .append($('<span>').addClass(options.icons.down))));
                 }
                 if (isEnabled('s')) {
@@ -268,6 +268,22 @@
                     );
                     template.append(toolbar);
                     return template;
+                }
+
+                if(true){
+                    template.prepend(
+                      $('<div>').addClass('dp-close-container')
+                        .append(
+                            $('<button>')
+                                .addClass('btn pull-right dp-close')
+                                .attr('type', 'button')
+                                .attr('data-action', 'close')
+                                .html('<span class="glyphicon glyphicon-remove"></span>'))
+                        .append(
+                            $('<div>')
+                              .addClass('clearfix')
+                      )
+                    );
                 }
 
                 if (options.toolbarPlacement === 'top') {
@@ -384,6 +400,13 @@
                 if (dir) {
                     currentViewMode = Math.max(minViewModeNumber, Math.min(2, currentViewMode + dir));
                 }
+
+                if(currentViewMode > 0){
+                    widget.find('.picker-switch').attr('colspan', '2');
+                } else {
+                    widget.find('.picker-switch').attr('colspan', (options.calendarWeeks ? '6' : '5'));
+                }
+
                 widget.find('.datepicker > div').hide().filter('.datepicker-' + datePickerModes[currentViewMode].clsName).show();
             },
 
@@ -440,18 +463,30 @@
 
             fillMonths = function () {
                 var spans = [],
-                    monthsShort = viewDate.clone().startOf('y').hour(12); // hour is changed to avoid DST issues in some browsers
+                    monthsView = widget.find('.datepicker-months'),
+                    monthsShort = viewDate.clone().startOf('y').hour(12), // hour is changed to avoid DST issues in some browsers
+                    html = '<tr>',
+                    count = 0;
+
                 while (monthsShort.isSame(viewDate, 'y')) {
-                    spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('MMM')));
+                    html += '<td class="month " data-action="selectMonth">' + monthsShort.format('MMM') + '</td>';
+
                     monthsShort.add(1, 'M');
+                    count++;
+
+                    if(count%4 === 0){
+                        html += '</tr><tr>';
+                    }
                 }
-                widget.find('.datepicker-months td').empty().append(spans);
+
+                html += '</tr>';
+                monthsView.find('tbody').html(html);
             },
 
             updateMonths = function () {
                 var monthsView = widget.find('.datepicker-months'),
                     monthsViewHeader = monthsView.find('th'),
-                    months = monthsView.find('tbody').find('span');
+                    months = monthsView.find('tbody').find('td');
 
                 monthsView.find('.disabled').removeClass('disabled');
 
@@ -482,7 +517,8 @@
                     yearsViewHeader = yearsView.find('th'),
                     startYear = viewDate.clone().subtract(5, 'y'),
                     endYear = viewDate.clone().add(6, 'y'),
-                    html = '';
+                    count = 0,
+                    html = '<tr>';
 
                 yearsView.find('.disabled').removeClass('disabled');
 
@@ -497,11 +533,17 @@
                 }
 
                 while (!startYear.isAfter(endYear, 'y')) {
-                    html += '<span data-action="selectYear" class="year' + (startYear.isSame(date, 'y') ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.year() + '</span>';
+                    html += '<td data-action="selectYear" class="year' + (startYear.isSame(date, 'y') ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.year() + '</td>';
                     startYear.add(1, 'y');
+                    count++;
+
+                    if(count%4 === 0){
+                        html += '</tr><tr>'
+                    }
                 }
 
-                yearsView.find('td').html(html);
+                html + '</tr>';
+                yearsView.find('tbody').html(html);
             },
 
             fillDate = function () {
@@ -729,6 +771,10 @@
              *
              ********************************************************************************/
             actions = {
+                close: function(){
+                    hide();
+                },
+
                 next: function () {
                     viewDate.add(datePickerModes[currentViewMode].navStep, datePickerModes[currentViewMode].navFnc);
                     fillDate();
@@ -744,7 +790,7 @@
                 },
 
                 selectMonth: function (e) {
-                    var month = $(e.target).closest('tbody').find('span').index($(e.target));
+                    var month = $(e.target).closest('tbody').find('td').index($(e.target));
                     viewDate.month(month);
                     if (currentViewMode === minViewModeNumber) {
                         setValue(date.clone().year(viewDate.year()).month(viewDate.month()));
@@ -952,9 +998,9 @@
                 widget.show();
                 place();
 
-                if (!input.is(':focus')) {
-                    input.focus();
-                }
+                //if (!input.is(':focus')) {
+                //    input.focus();
+                //}
 
                 notifyEvent({
                     type: 'dp.show'
