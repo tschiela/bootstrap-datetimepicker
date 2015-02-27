@@ -6,7 +6,6 @@
 .bootstrap-datetimepicker-widget.dropdown-menu {
   padding: 4px;
   position: fixed;
-  height: 310px;
   width: 90%;
   margin: 0 5% 2em 5%;
 }
@@ -377,9 +376,6 @@
 .timepicker > div table {
   max-height: 100%;
   height: 100%;
-}
-.list-unstyled > li {
-  height: 90%;
 }
 .list-unstyled > li.collapse.in {
   height: auto !important;

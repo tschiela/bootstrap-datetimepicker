@@ -270,7 +270,7 @@
                     return template;
                 }
 
-                if(true){
+                if(options.showCloseButton){
                     template.prepend(
                       $('<div>').addClass('dp-close-container')
                         .append(
@@ -1591,6 +1591,23 @@
             return picker;
         };
 
+        picker.showCloseButton = function (showCloseButton) {
+            if (arguments.length === 0) {
+                return options.showCloseButton;
+            }
+
+            if (typeof showCloseButton !== 'boolean') {
+                throw new TypeError('showCloseButton() expects a boolean parameter');
+            }
+
+            options.showCloseButton = showCloseButton;
+            if (widget) {
+                hide();
+                show();
+            }
+            return picker;
+        };
+
         picker.showClear = function (showClear) {
             if (arguments.length === 0) {
                 return options.showClear;
@@ -1735,6 +1752,7 @@
         viewMode: 'days',
         toolbarPlacement: 'default',
         showTodayButton: false,
+        showCloseButton: false,
         showClear: false,
         widgetPositioning: {
             horizontal: 'auto',
