@@ -4,18 +4,12 @@
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
 .bootstrap-datetimepicker-widget {
+    .user-select(none);
+
     &.dropdown-menu {
         padding: 4px;
-        position: fixed;
-        width: 90%;
-        margin: 0 5% 2em 5%;
-
-        @media(min-width: @screen-sm-min) {
-            position: absolute;
-            width: 19em;
-            height: auto;
-            margin: 2px 0;
-        }
+        width: 19em;
+        margin: 2px 0;
 
         &.timepicker-sbs {
             @media (min-width: @screen-sm-min) {
@@ -29,63 +23,67 @@
             }
         }
 
-        @media(min-width: @screen-sm-min) {
-            &:before, &:after {
-                content: '';
+        &:before, &:after {
+            content: '';
+            display: none;
+
+            position: absolute;
+
+            @media(min-width: @screen-sm-min) {
                 display: inline-block;
-                position: absolute;
-            }
-
-            &.bottom {
-                &:before {
-                    border-left: 7px solid transparent;
-                    border-right: 7px solid transparent;
-                    border-bottom: 7px solid #ccc;
-                    border-bottom-color: rgba(0,0,0,.2);
-                    top: -7px;
-                    left: 7px;
-                }
-
-                &:after {
-                    border-left: 6px solid transparent;
-                    border-right: 6px solid transparent;
-                    border-bottom: 6px solid white;
-                    top: -6px;
-                    left: 8px;
-                }
-            }
-
-            &.top {
-                &:before {
-                    border-left: 7px solid transparent;
-                    border-right: 7px solid transparent;
-                    border-top: 7px solid #ccc;
-                    border-top-color: rgba(0,0,0,.2);
-                    bottom: -7px;
-                    left: 6px;
-                }
-
-                &:after {
-                    border-left: 6px solid transparent;
-                    border-right: 6px solid transparent;
-                    border-top: 6px solid white;
-                    bottom: -6px;
-                    left: 7px;
-                }
-            }
-
-            &.pull-right {
-                &:before {
-                    left: auto;
-                    right: 6px;
-                }
-
-                &:after {
-                    left: auto;
-                    right: 7px;
-                }
             }
         }
+
+        &.bottom {
+            &:before {
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-bottom: 7px solid #ccc;
+                border-bottom-color: rgba(0,0,0,.2);
+                top: -7px;
+                left: 7px;
+            }
+
+            &:after {
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-bottom: 6px solid white;
+                top: -6px;
+                left: 8px;
+            }
+        }
+
+        &.top {
+            &:before {
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-top: 7px solid #ccc;
+                border-top-color: rgba(0,0,0,.2);
+                bottom: -7px;
+                left: 6px;
+            }
+
+            &:after {
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 6px solid white;
+                bottom: -6px;
+                left: 7px;
+            }
+        }
+
+        &.pull-right {
+            &:before {
+                left: auto;
+                right: 6px;
+            }
+
+            &:after {
+                left: auto;
+                right: 7px;
+            }
+        }
+        
     }
 
     .list-unstyled {
@@ -240,6 +238,7 @@
 
             &:hover {
                 background: @gray-lighter;
+                cursor: pointer;
             }
 
             &.active {
@@ -365,8 +364,53 @@
     }
 }
 
+.datetimepicker-open {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    .bootstrap-datetimepicker-widget {
+        display: block;
+        width: 90%;
+        margin: 0 5%;
+        top: 34px;
+
+        @media (min-width: @screen-sm-min) {
+            width: 19em;
+            margin: 2px 0;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        overflow: auto;
+    }
+}
+
 .input-group.date {
     & .input-group-addon {
-  cursor: pointer;
-  }
+        cursor: pointer;
+    }
+}
+
+.bootstrap-datetimepicker-wrapper {
+    position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 2;
+
+    @media (min-width: @screen-sm-min) {
+        position: absolute;
+        height: 340px;
+        overflow: hidden;
+    }
+}
+
+.dp-close {
+    border: 0;
+    background: none;
 }
