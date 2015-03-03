@@ -467,8 +467,7 @@
             },
 
             fillMonths = function () {
-                var spans = [],
-                    monthsView = widgetWrapper.find('.datepicker-months'),
+                var monthsView = widgetWrapper.find('.datepicker-months'),
                     monthsShort = viewDate.clone().startOf('y').hour(12), // hour is changed to avoid DST issues in some browsers
                     html = '<tr>',
                     count = 0;
@@ -543,11 +542,11 @@
                     count++;
 
                     if(count%4 === 0){
-                        html += '</tr><tr>'
+                        html += '</tr><tr>';
                     }
                 }
 
-                html + '</tr>';
+                html += '</tr>';
                 yearsView.find('tbody').html(html);
             },
 

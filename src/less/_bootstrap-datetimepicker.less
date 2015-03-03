@@ -12,13 +12,13 @@
         margin: 2px 0;
 
         &.timepicker-sbs {
-            @media (min-width: @screen-sm-min) {
+            @media all and (min-width: @screen-sm-min) {
                 width: 38em;
             }
-            @media (min-width: @screen-md-min) {
+            @media all and (min-width: @screen-md-min) {
                 width: 38em;
             }
-            @media (min-width: @screen-lg-min) {
+            @media all and (min-width: @screen-lg-min) {
                 width: 38em;
             }
         }
@@ -29,7 +29,7 @@
 
             position: absolute;
 
-            @media(min-width: @screen-sm-min) {
+            @media all and (min-width: @screen-sm-min) {
                 display: inline-block;
             }
         }
@@ -107,6 +107,10 @@
 
     button[data-action] {
         padding: 6px;
+
+        &.dp-close {
+            padding: 12px;
+        }
     }
 
     .btn[data-action="incrementHours"]::after {
@@ -185,13 +189,22 @@
             cursor: not-allowed;
         }
 
-        &.prev::after {
-            .sr-only();
-            content: "Previous Month";
+        &.prev {
+            padding: 12px;
+
+            &::after {
+                .sr-only();
+                content: "Previous Month";
+            }
         }
-        &.next::after {
-            .sr-only();
-            content: "Next Month";
+
+        &.next {
+            padding: 12px;
+
+            &::after {
+                .sr-only();
+                content: "Next Month";
+            }
         }
     }
 
@@ -209,7 +222,7 @@
     .picker-switch {
         font-size: 1.5em;
 
-        @media (min-width: @screen-sm-min) {
+        @media all and (min-width: @screen-sm-min) {
             font-size: 1em;
         }
     }
@@ -258,7 +271,7 @@
                 cursor: not-allowed;
             }
 
-            @media (min-width: @screen-sm-min) {
+            @media all and (min-width: @screen-sm-min) {
                 height: 54px;
                 line-height: 54px;
                 width: 54px;
@@ -323,11 +336,16 @@
         -webkit-transition: none;
         transition: none;
 
-        @media (min-width: @screen-sm-min) {
+        @media all and (min-width: @screen-sm-min) {
             .transition-property(~"height, visibility");
             .transition-duration(.35s);
             .transition-timing-function(ease);
         }
+    }
+
+    // on IE10 mobile shadow stays after datetimepicker/timepicker will be collapse
+    @media screen and(-ms-high-contrast: none){
+        .box-shadow(none);
     }
 }
 
@@ -345,7 +363,7 @@
         }
     }
 
-    @media (min-width: @screen-sm-min) {
+    @media all and (min-width: @screen-sm-min) {
         height: auto;
     }
 }
@@ -376,13 +394,14 @@
         margin: 0 5%;
         top: 34px;
 
-        @media (min-width: @screen-sm-min) {
+        @media all and (min-width: @screen-sm-min) {
             width: 19em;
             margin: 2px 0;
         }
     }
 
-    @media (min-width: @screen-sm-min) {
+    @media screen and (min-width: @screen-sm-min) {
+        position: static;
         overflow: auto;
     }
 }
@@ -403,9 +422,9 @@
     overflow-y: scroll;
     z-index: 2;
 
-    @media (min-width: @screen-sm-min) {
+    @media all and (min-width: @screen-sm-min) {
         position: absolute;
-        height: 340px;
+        height: 390px;
         overflow: hidden;
     }
 }

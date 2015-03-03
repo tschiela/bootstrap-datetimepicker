@@ -14,17 +14,17 @@
   width: 19em;
   margin: 2px 0;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
     width: 38em;
   }
 }
-@media (min-width: 992px) {
+@media all and (min-width: 992px) {
   .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
     width: 38em;
   }
 }
-@media (min-width: 1200px) {
+@media all and (min-width: 1200px) {
   .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
     width: 38em;
   }
@@ -35,7 +35,7 @@
   display: none;
   position: absolute;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .bootstrap-datetimepicker-widget.dropdown-menu:before,
   .bootstrap-datetimepicker-widget.dropdown-menu:after {
     display: inline-block;
@@ -98,6 +98,9 @@
 }
 .bootstrap-datetimepicker-widget button[data-action] {
   padding: 6px;
+}
+.bootstrap-datetimepicker-widget button[data-action].dp-close {
+  padding: 12px;
 }
 .bootstrap-datetimepicker-widget .btn[data-action="incrementHours"]::after {
   position: absolute;
@@ -225,6 +228,9 @@
   color: #777777;
   cursor: not-allowed;
 }
+.bootstrap-datetimepicker-widget th.prev {
+  padding: 12px;
+}
 .bootstrap-datetimepicker-widget th.prev::after {
   position: absolute;
   width: 1px;
@@ -235,6 +241,9 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
   content: "Previous Month";
+}
+.bootstrap-datetimepicker-widget th.next {
+  padding: 12px;
 }
 .bootstrap-datetimepicker-widget th.next::after {
   position: absolute;
@@ -257,7 +266,7 @@
 .bootstrap-datetimepicker-widget .picker-switch {
   font-size: 1.5em;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .bootstrap-datetimepicker-widget .glyphicon,
   .bootstrap-datetimepicker-widget .picker-switch {
     font-size: 1em;
@@ -304,7 +313,7 @@
   color: #777777;
   cursor: not-allowed;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .bootstrap-datetimepicker-widget td.year,
   .bootstrap-datetimepicker-widget td.month {
     height: 54px;
@@ -359,7 +368,7 @@
   -webkit-transition: none;
   transition: none;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .bootstrap-datetimepicker-widget .collapsing {
     -webkit-transition-property: height, visibility;
     transition-property: height, visibility;
@@ -367,6 +376,12 @@
     transition-duration: 0.35s;
     -webkit-transition-timing-function: ease;
     transition-timing-function: ease;
+  }
+}
+@media screen and (-ms-high-contrast: none) {
+  .bootstrap-datetimepicker-widget {
+    -webkit-box-shadow: none;
+    box-shadow: none;
   }
 }
 .list-unstyled,
@@ -385,7 +400,7 @@
 .list-unstyled > li.picker-switch {
   height: auto;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .list-unstyled,
   .datepicker,
   .timepicker,
@@ -408,14 +423,15 @@
   margin: 0 5%;
   top: 34px;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .datetimepicker-open .bootstrap-datetimepicker-widget {
     width: 19em;
     margin: 2px 0;
   }
 }
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .datetimepicker-open {
+    position: static;
     overflow: auto;
   }
 }
@@ -432,10 +448,10 @@
   overflow-y: scroll;
   z-index: 2;
 }
-@media (min-width: 768px) {
+@media all and (min-width: 768px) {
   .bootstrap-datetimepicker-wrapper {
     position: absolute;
-    height: 340px;
+    height: 390px;
     overflow: hidden;
   }
 }
