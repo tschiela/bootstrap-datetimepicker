@@ -272,7 +272,7 @@
                     return template;
                 }
 
-                if(options.showCloseButton){
+                if (options.showCloseButton) {
                     template.prepend(
                       $('<div>').addClass('dp-close-container')
                         .append(
@@ -406,7 +406,7 @@
                     currentViewMode = Math.max(minViewModeNumber, Math.min(2, currentViewMode + dir));
                 }
 
-                if(currentViewMode > 0){
+                if (currentViewMode > 0) {
                     widgetWrapper.find('.picker-switch').attr('colspan', '2');
                 } else {
                     widgetWrapper.find('.picker-switch').attr('colspan', (options.calendarWeeks ? '6' : '5'));
@@ -478,7 +478,7 @@
                     monthsShort.add(1, 'M');
                     count++;
 
-                    if(count%4 === 0){
+                    if (count % 4 === 0) {
                         html += '</tr><tr>';
                     }
                 }
@@ -541,7 +541,7 @@
                     startYear.add(1, 'y');
                     count++;
 
-                    if(count%4 === 0){
+                    if (count % 4 === 0) {
                         html += '</tr><tr>';
                     }
                 }
@@ -778,7 +778,7 @@
              *
              ********************************************************************************/
             actions = {
-                close: function(){
+                close: function () {
                     hide();
                 },
 
